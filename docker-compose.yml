@@ -1,0 +1,17 @@
+version: "3"
+services: 
+    backend: 
+        build:
+            dockerfile: docker/Dockerfile
+            context: .
+        ports:
+            - '2823:2823'
+        env_file:
+            - .env
+        volumes: 
+            - node_modules:/app/node_modules
+        networks:
+            - default
+volumes:
+    node_modules:
+        driver: local
