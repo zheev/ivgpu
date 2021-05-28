@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
+import { SearchController } from './search.controller'
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -16,7 +17,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
     })
   ],
-  controllers: [AppController],
+  controllers: [SearchController],
   providers: [AppService],
 })
 export class AppModule {}
