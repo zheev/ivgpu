@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 2823
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start:dev"]
