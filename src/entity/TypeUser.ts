@@ -10,8 +10,8 @@ export class TypeUser {
   name: string;
 
   @Column()
-  surname: string;
-
+  code: string;
+  
   @ManyToOne(() => User, (user) => user.typeId)
   users: User[];
 }
