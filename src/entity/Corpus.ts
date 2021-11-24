@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Courpus {
+export class Corpus {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,6 +11,6 @@ export class Courpus {
   @Column()
   address: string;
 
-  @Column()
+  @Column({array: true, type: 'text'})
   transport: Array<String>;
 }

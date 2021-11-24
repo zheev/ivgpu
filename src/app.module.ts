@@ -2,13 +2,17 @@ import { Module } from '@nestjs/common';
 import { SearchController } from './search.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { User } from './entity/User';
 import { TypeUser } from './entity/TypeUser';
 import { Discipline } from './entity/Discipline';
 import { Group } from './entity/Group';
 import { Teacher } from './entity/Teacher';
 import { TimeTable } from './entity/TimeTable';
+import { Corpus } from './entity/Corpus';
+
 import { TeacherModule } from './teacher/teacher.module';
+import { CorpusModule } from './corpus/corpus.module';
 
 @Module({
   imports: [
@@ -19,10 +23,11 @@ import { TeacherModule } from './teacher/teacher.module';
       username: process.env.USERNAME,
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
-      entities: [User, TypeUser, Discipline, Group, Teacher, TimeTable],
+      entities: [User, TypeUser, Discipline, Group, Teacher, TimeTable, Corpus],
       synchronize: true,
     }),
     TeacherModule,
+    CorpusModule,
   ],
   controllers: [SearchController],
   providers: [AppService],
