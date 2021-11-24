@@ -1,37 +1,49 @@
-import { Controller, Post, Get, Body, Query } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, Res } from '@nestjs/common';
 import { CreateTeacherDto } from '../dto/teacher/create.dto';
-import { Teacher } from '../entity/Teacher';
-import { LoadRepository } from '../LoadRepository';
 import  { TeacherService } from './teacher.service';
 
 @Controller('teacher')
 export class TeacherController {
   repository;
-  constructor(private teacherService: TeacherService) {
-   
-    console.log(teacherService);
-  }
+  constructor(private teacherService: TeacherService) {}
 
   @Get()
   async get(): Promise<Object> {
-    const data = await this.repository.findAll();
-
-    console.log(data);
+    const data = await this.teacherService.findAll();
 
     return {
       status: 'OK',
-      data: {},
+      data,
     };
+  }
+  @Get(':id')
+  async getById(@Param('id') id: number, @Res() response): Promise<Object> {
+    try{
+      if(id === 0){
+        throw 'Id is not must zero';
+      }
+
+      const data = await this.teacherService.findOne(id);
+
+      if(!data){
+        response.code(404).send('Not Found');
+        throw new Error('not Found');
+      }
+
+      response.send(data);
+
+      return {
+        status: 'OK',
+        data
+      };
+    }catch(e){
+      response.code(500).send(e.message);
+    }
   }
   @Post()
   async post(@Body() createTeacherDto: CreateTeacherDto): Promise<Object> {
-    const teacherRepository = await LoadRepository.load(Teacher);
-    const teacher = await teacherRepository.create();
-
-    Object.assign(teacher, createTeacherDto);
-
-    await teacherRepository.save(teacher);
-
+    
+    await this.teacherService.create(createTeacherDto);
     return {
       status: 'OK',
       data: createTeacherDto,

@@ -1,5 +1,6 @@
 
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Teacher } from '../entity/Teacher';
 
@@ -7,7 +8,7 @@ import { Teacher } from '../entity/Teacher';
 export class TeacherService {
 
   constructor(
-    @Inject('TEACHER_REPOSITORY')
+    @InjectRepository(Teacher)
     private teacherRepository: Repository<Teacher>
   ){}
  
